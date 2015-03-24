@@ -1,18 +1,46 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Weekly planner</title>
-    </head>
-    <body>
-    {% if users %}
-        <ul>
-        {% for user in users %}
-            <li> {{ user.username }}</li>
-        {% endfor %}
-        </ul>
+{% extends 'weekly/base.html' %}
+{% load staticfiles %}
+{% block title %}Index{% endblock %}
+{% block body_block %}
+{% if user.is_authenticated %}
+<div class="page-header">
+    <h1>Welcome to Weekly {{ user.username }}!</h1>
     {% else %}
-        <p>No user available</p>
-    {% endif %}
-    </body>
-</html>
-
+    <h1>Welcome to Weekly!</h1>
+{% endif %}
+</div>
+<div class="row placeholders">
+    <div class="col-xs-12 col-sm-6 placeholder">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Work</h3>
+            </div>
+        </div>
+{% if events %}
+        <ul class="list-group">
+    {% for event in events %}
+             <li class="list-group-item">{{ event.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+        <strong>There are no work present.</strong>
+{% endif %}
+    </div>
+    <div class="col-xs-12 col-sm-6 placeholder">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Users</h3>
+        </div>
+    </div>
+{% if users %}
+        <ul class="list-group">
+{% for user in users %}
+             <li class="list-group-item">{{ user.username }}</li>
+{% endfor %}
+        </ul>
+{% else %}
+        <strong>There are no users present.</strong>
+{% endif %}
+    </div>
+</div>
+{% endblock %}
