@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^weekly/', include('weekly.urls')),
+#    url(r'^issues/', include('issues.urls')),
 )
